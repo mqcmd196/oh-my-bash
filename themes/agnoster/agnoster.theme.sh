@@ -205,6 +205,15 @@ prompt_end() {
     CURRENT_BG=''
 }
 
+### ROS workspace prompt
+prompt_ros() {
+    if [[ -n $ROS_WORKSPACE_DISPLAY ]]; then
+        color=cyan
+        prompt_segment $color $PRIMARY_FG
+        prompt_segment $color white $ROS_WORKSPACE_DISPLAY
+    fi
+}
+
 ### virtualenv prompt
 prompt_virtualenv() {
     if [[ -n $VIRTUAL_ENV ]]; then
@@ -403,6 +412,7 @@ build_prompt() {
     prompt_status
     #[[ -z ${AG_NO_HIST+x} ]] && prompt_histdt
     [[ -z ${AG_NO_CONTEXT+x} ]] && prompt_context
+    prompt_ros
     prompt_virtualenv
     prompt_dir
     prompt_git
