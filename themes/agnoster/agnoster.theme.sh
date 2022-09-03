@@ -214,6 +214,16 @@ prompt_ros() {
     fi
 }
 
+### conda prompt
+prompt_conda() {
+    if [[ -n $CONDA_PROMPT_MODIFIER ]]; then
+        color=green
+        view=$(echo $CONDA_PROMPT_MODIFIER | sed -e "s/^.*(\(.*\)).*$/\1/" )
+        prompt_segment $color $PRIMARY_FG
+        prompt_segment $color white $view
+    fi
+}
+
 ### virtualenv prompt
 prompt_virtualenv() {
     if [[ -n $VIRTUAL_ENV ]]; then
@@ -412,6 +422,7 @@ build_prompt() {
     # prompt_status
     #[[ -z ${AG_NO_HIST+x} ]] && prompt_histdt
     [[ -z ${AG_NO_CONTEXT+x} ]] && prompt_context
+    prompt_conda
     prompt_ros
     prompt_virtualenv
     prompt_dir
